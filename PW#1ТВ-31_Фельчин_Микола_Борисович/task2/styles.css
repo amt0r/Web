@@ -1,0 +1,31 @@
+body {
+    font-family: monospace, Lucida;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 30px;
+    background-color: rgb(36, 35, 35);
+    color: #dfd5d5;
+    border: 3px solid #dfd5d5;
+    border-radius: 40px;
+    box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.2);
+}
+input {
+    width: 100%;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 5px;
+}
+button {
+    width: 100%;
+    padding: 10px;
+    margin: 10px;
+    background-color: rgba(79, 3, 255, 0.363);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.result {
+    padding: 10px;
+    background: #ffffff13;
+}
