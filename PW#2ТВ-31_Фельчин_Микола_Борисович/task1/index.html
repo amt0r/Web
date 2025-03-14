@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Калькулятор викидів</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Калькулятор валових викидів твердих частинок</h1>
+    
+    <div id="description">
+        <p>Енергоблок з котлом, призначеним для факельного спалювання вугілля з високим вмістом летких, 
+        типу газового або довгополуменевого, з рідким шлаковидаленням.</p>
+    </div>
+    
+    <div id="inputs">
+        <div class="fuel-section">
+            <h2>Вугілля</h2>
+            <label for="coal-amount">Кількість вугілля (т):</label>
+            <input type="number" id="coal-amount">
+            
+            <label for="coal-ash">Зольність (Ar, %):</label>
+            <input type="number" id="coal-ash" step="0.01">
+            
+            <label for="coal-heat">Нижча теплота згоряння (Qri, МДж/кг):</label>
+            <input type="number" id="coal-heat" step="0.01">
+            
+            <label for="coal-combustibles">Вміст горючих у леткій золі (Гвин, %):</label>
+            <input type="number" id="coal-combustibles" step="0.1">
+        </div>
+        
+        <div class="fuel-section">
+            <h2>Мазут</h2>
+            <label for="mazut-amount">Кількість мазуту (т):</label>
+            <input type="number" id="mazut-amount">
+            
+            <label for="mazut-ash-dry">Зольність сухої маси (%):</label>
+            <input type="number" id="mazut-ash-dry" step="0.01">
+            
+            <label for="mazut-heat">Нижча теплота згоряння горючої маси (МДж/кг):</label>
+            <input type="number" id="mazut-heat" step="0.01">
+        </div>
+        
+        <button onclick="calculateResults()">Розрахувати</button>
+        <button onclick="resetToDefaults()">Контрольний приклад</button>
+        <button onclick="reset()">Скинути</button>
+    </div>
+    
+    <div id="results" class="result">
+        <h2>Результати розрахунку</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Паливо</th>
+                    <th>Показник емісії (г/ГДж)</th>
+                    <th>Валовий викид (т)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Вугілля</td>
+                    <td id="coal-emission">-</td>
+                    <td id="coal-total">-</td>
+                </tr>
+                <tr>
+                    <td>Мазут</td>
+                    <td id="mazut-emission">-</td>
+                    <td id="mazut-total">-</td>
+                </tr>
+                <tr>
+                    <td>Природний газ</td>
+                    <td id="gas-emission">-</td>
+                    <td id="gas-total">-</td>
+                </tr>
+                <tr class="total-row">
+                    <td>Загальний викид</td>
+                    <td id="total-emision">-</td>
+                    <td id="total-total">-</td>
+                </tr>
+            </tbody>
+        </table>
+    <script src="script.js"></script>
+</body>
+</html>
