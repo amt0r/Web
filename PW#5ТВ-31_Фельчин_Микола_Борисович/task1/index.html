@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Калькулятор надійності систем електропередачі</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Калькулятор надійності систем електропередачі</h1>
+    
+    <div class="controls">
+      <div class="element-selector">
+        <select id="elementSelect" class="element-select">
+          <option value="">Виберіть елемент...</option>
+        </select>
+        <button id="addElementBtn" class="add-button">Додати</button>
+      </div>
+      
+      <div class="section-selector">
+        <label class="section-label">Секційний вимикач для двоколової системи:</label>
+        <select id="sectionalSwitchSelect" class="section-select">
+        </select>
+      </div>
+    </div>
+    
+    <div id="elementsTableContainer" class="table-container hidden">
+      <h2>Вибрані елементи:</h2>
+      <div class="overflow-table">
+        <table id="elementsTable">
+          <thead>
+            <tr>
+              <th>Елемент</th>
+              <th>ω, рік⁻¹</th>
+              <th>tв, год.</th>
+              <th>Кількість</th>
+              <th>Дія</th>
+            </tr>
+          </thead>
+          <tbody id="elementsTableBody">
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
+    <div id="resultsContainer" class="results-container hidden">
+      <h2>Результати розрахунку:</h2>
+      <div class="results-content">
+        <div class="result-section">
+          <p><strong>Частота відмов одноколової системи:</strong> <span id="omegaOC"></span> рік⁻¹</p>
+          <p><strong>Середня тривалість відновлення:</strong> <span id="tB_OC"></span> год.</p>
+          <p><strong>Коефіцієнт аварійного простою:</strong> <span id="ka_OC"></span>·10⁻⁴</p>
+          <p><strong>Коефіцієнт планового простою:</strong> <span id="kp_OC"></span>·10⁻⁴</p>
+        </div>
+        <div class="result-section">
+          <p><strong>Частота відмов двоколової системи без секційного вимикача:</strong> <span id="omegaAK"></span>·10⁻⁴ рік⁻¹</p>
+          <p id="extraSwitchFailureRate" class="hidden"><strong>Додаткова частота відмов від секційного вимикача:</strong> <span id="selectedSwitchOmega"></span> рік⁻¹</p>
+          <p><strong>Частота відмов двоколової системи <span id="withSwitchText"></span>:</strong> <span id="omegaAK_with_section"></span> рік⁻¹</p>
+        </div>
+        <div class="conclusion">
+          <p class="conclusion-title">Висновок:</p>
+          <p id="conclusionText"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

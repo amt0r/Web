@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Калькулятори електричних мереж</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Калькулятори електричних мереж</h1>
+
+        <div class="tabs">
+            <button class="tab-button active" data-tab="cableCrossSection">Переріз кабелю</button>
+            <button class="tab-button" data-tab="threePhase">Трифазний КЗ</button>
+            <button class="tab-button" data-tab="shortCircuit">Струми КЗ</button>
+        </div>
+        
+        <div class="tab-content active">
+            <div class="tab-pane" id="cableCrossSection">
+                <h2 class="calculator-title">Розрахунок перерізу кабелю</h2>
+                
+                <div class="calculator-form">
+                    <div class="form-group">
+                        <label for="cableVoltage">Напруга (кВ):</label>
+                        <input type="number" id="cableVoltage" class="input-field" value="10" step="0.1">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="shortCircuitCurrent">Струм КЗ (кА):</label>
+                        <input type="number" id="shortCircuitCurrent" class="input-field" value="2.5" step="0.1">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="shortCircuitTime">Фіктивний час вимикання струму КЗ (с):</label>
+                        <input type="number" id="shortCircuitTime" class="input-field" value="2.5" step="0.1">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cableTransformerPower">Потужність ТП (кВА):</label>
+                        <input type="number" id="cableTransformerPower" class="input-field" value="2000" step="100">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="calculatedLoad">Розрахункове навантаження (кВА):</label>
+                        <input type="number" id="calculatedLoad" class="input-field" value="1300" step="100">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="operatingHours">Тривалість роботи (год):</label>
+                        <input type="number" id="operatingHours" class="input-field" value="4000" step="100">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cableType">Тип кабелю:</label>
+                        <select id="cableType" class="input-field" onchange="updateEconomicCurrentDensity()">
+                            <option value="bare">Неізольовані проводи та шини</option>
+                            <option value="paper" selected>Кабелі з паперовою і проводи з гумовою та полівінілхлоридною ізоляцією з жилами</option>
+                            <option value="rubber">Кабелі з гумовою та пластмасовою ізоляцією з жилами</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="conductorType">Тип провідника:</label>
+                        <select id="conductorType" class="input-field">
+                            <option value="copper">Мідний</option>
+                            <option value="aluminum" selected>Алюмінієвий</option>
+                        </select>
+                    </div>
+                    
+                    <button id="calculateCable" class="calculate-button">Розрахувати</button>
+                </div>
+                
+                <div id="cableResults" class="calculator-results">
+                    <h3 class="result-title">Результати розрахунку:</h3>
+                    <div id="cableResultContent" class="result-group"></div>
+                </div>
+            </div>
+            
+            <div class="tab-pane" id="threePhase">
+                <h2 class="calculator-title">Калькулятор струму трифазного КЗ</h2>
+                
+                <div class="calculator-form">
+                    <div class="form-group">
+                        <h3 class="form-section-title">Вхідні дані</h3>
+                        
+                        <div class="form-group">
+                            <label for="threePhaseVoltage">Номінальна напруга (Uсн), кВ:</label>
+                            <input type="number" id="threePhaseVoltage" class="input-field" value="10.5" step="0.1">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="power">Потужність КЗ (Sк), МВ·А:</label>
+                            <input type="number" id="power" class="input-field" value="200" step="1">
+                        </div>
+                    </div>
+                    
+                    <button id="calculateThreePhase" class="calculate-button">Розрахувати</button>
+                </div>
+                
+                <div class="calculator-results">
+                    <h3 class="result-title">Результати розрахунку</h3>
+                    <div class="result-group">
+                        <div class="result-item result-main">
+                            <span class="result-label">Струм трифазного КЗ (Iп0):</span>
+                            <span id="currentValue">2.5</span> кА
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-pane" id="shortCircuit">
+                <h2 class="calculator-title">Калькулятор струмів короткого замикання</h2>
+                
+                <div class="calculator-form">
+                    <div class="form-group">
+                        <label for="operatingMode">Режим роботи:</label>
+                        <select id="operatingMode" class="input-field">
+                            <option value="normal">Нормальний режим</option>
+                            <option value="minimal">Мінімальний режим</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="transformerUkmax">Напруга КЗ трансформатора Uк.max (%):</label>
+                        <input type="number" id="transformerUkmax" class="input-field" value="11.1" step="0.1">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="highVoltage">Висока напруга (кВ):</label>
+                        <input type="number" id="highVoltage" class="input-field" value="115" step="0.1">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="lowVoltage">Низька напруга (кВ):</label>
+                        <input type="number" id="lowVoltage" class="input-field" value="11" step="0.1">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="resistanceNormal">Опір у нормальному режимі Rс.н (Ом):</label>
+                        <input type="number" id="resistanceNormal" class="input-field" value="10.65" step="0.01">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="reactanceNormal">Реактивний опір у нормальному режимі Xс.н (Ом):</label>
+                        <input type="number" id="reactanceNormal" class="input-field" value="24.02" step="0.01">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="resistanceMinimal">Опір у мінімальному режимі Rс.min (Ом):</label>
+                        <input type="number" id="resistanceMinimal" class="input-field" value="34.88" step="0.01">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="reactanceMinimal">Реактивний опір у мінімальному режимі Xс.min (Ом):</label>
+                        <input type="number" id="reactanceMinimal" class="input-field" value="65.68" step="0.01">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="Snom">Повна потужність мережі Sном.т (МВА):</label>
+                        <input type="number" id="Snom" class="input-field" value="6.3" step="0.1">
+                    </div>
+                    
+                    <button id="calculateShortCircuit" class="calculate-button">Розрахувати</button>
+                </div>
+                
+                <div class="calculator-results" id="shortCircuitResults">
+                    <div class="result-group">
+                        <h3 class="result-title">Результати розрахунку:</h3>
+                        <table class="result-table">
+                            <tr>
+                                <th>Параметр</th>
+                                <th>Значення</th>
+                            </tr>
+                            <tr>
+                                <td>Струм трифазного КЗ на шинах 10 кВ I<sup>(3)</sup>ш (А)</td>
+                                <td id="threePhaseShortCircuit"></td>
+                            </tr>
+                            <tr>
+                                <td>Струм двофазного КЗ на шинах 10 кВ I<sup>(2)</sup>ш (А)</td>
+                                <td id="twoPhaseShortCircuit"></td>
+                            </tr>
+                            <tr>
+                                <td>Дійсний струм трифазного КЗ на шинах 10 кВ I<sup>(3)</sup>ш.н (А)</td>
+                                <td id="actualThreePhaseShortCircuit"></td>
+                            </tr>
+                            <tr>
+                                <td>Дійсний струм двофазного КЗ на шинах 10 кВ I<sup>(2)</sup>ш.н (А)</td>
+                                <td id="actualTwoPhaseShortCircuit"></td>
+                            </tr>
+                        </table>
+                    </div>
+                    
+                    <div class="result-group" id="line130Section">
+                        <h3 class="result-title">Розрахунок струмів КЗ для лінії №130:</h3>
+                        <table class="result-table">
+                            <tr>
+                                <th>Параметр</th>
+                                <th>Значення</th>
+                            </tr>
+                            <tr>
+                                <td>Струм трифазного КЗ у точці 10 I<sup>(3)</sup>10 (А)</td>
+                                <td id="point10ThreePhaseShortCircuit"></td>
+                            </tr>
+                            <tr>
+                                <td>Струм двофазного КЗ у точці 10 I<sup>(2)</sup>10 (А)</td>
+                                <td id="point10TwoPhaseShortCircuit"></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

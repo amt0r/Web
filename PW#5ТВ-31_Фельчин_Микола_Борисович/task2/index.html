@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Калькулятор збитків від переривання електропостачання</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="calculator">
+        <h1>Розрахунок збитків від переривання електропостачання</h1>
+        
+        <div class="input-group">
+            <h2>Вхідні дані:</h2>
+            
+            <label for="zper_a">Питомі збитки від аварійних вимкнень (Зпер.а), грн/кВт·год:</label>
+            <input type="number" id="zper_a" value="23.6" step="0.1">
+            
+            <label for="zper_p">Питомі збитки від планових вимкнень (Зпер.п), грн/кВт·год:</label>
+            <input type="number" id="zper_p" value="17.6" step="0.1">
+            
+            <label for="omega">Частота відмов (ω), рік⁻¹:</label>
+            <input type="number" id="omega" value="0.01" step="0.001">
+            
+            <label for="t_v">Середній час відновлення трансформатора (t_в), год:</label>
+            <input type="number" id="t_v" value="45" step="1">
+            
+            <label for="k_p">Середній час планового простою трансформатора (k_п), год/рік:</label>
+            <input type="number" id="k_p" value="4" step="0.1">
+            
+            <label for="P_m">Потужність трансформатора (P_м), кВт:</label>
+            <input type="number" id="P_m" value="5120" step="10">
+            
+            <label for="T_m">Максимальна кількість годин використання навантаження (T_м), год/рік:</label>
+            <input type="number" id="T_m" value="6451" step="1">
+            
+            <button id="calculate" onclick="calculateLosses()">Розрахувати</button>
+        </div>
+        
+        <div class="results">
+            <h2>Результати розрахунку:</h2>
+            <div id="result_M_W_ned_a">
+                <strong>Математичне сподівання аварійного недовідпущення електроенергії:</strong> <span>0</span> кВт·год.
+            </div>
+            <div id="result_M_W_ned_p">
+                <strong>Математичне сподівання планового недовідпущення електроенергії:</strong> <span>0</span> кВт·год.
+            </div>
+            <div id="result_M_Z_per">
+                <strong>Математичне сподівання збитків від переривання електропостачання:</strong> <span>0</span> грн.
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
